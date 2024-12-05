@@ -1,0 +1,59 @@
+@import "../../styles/variables.scss";
+
+.not-found{
+  min-height: 50px;
+  width: 100%;
+  background: $bg-white;
+  text-align: center;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}  
+
+.transaction{
+    display: block;
+  background: #000;
+  }
+
+.white{
+  background-color: $bg-white;
+}
+
+.gray{
+  background-color: $bg-gray;
+}
+
+.categorize{
+  background: $bg-white;
+  padding: 15px;
+  border-bottom: 1px solid $dark-gray;
+}
+
+.categorize--button{
+  background: $primary-color;
+  color: $bg-white;
+  padding: 2px 10px;
+  font-size: 12px;
+  border-radius: 3px;
+  border: none;
+  margin: 0 5px;
+  cursor: pointer;
+
+}
+
+.multi-select-actions{
+  display: flex;
+  color: $dark-gray;
+  font-size: 16px;
+  cursor: pointer;
+  span{
+    color: $primary-color;
+  }
+}
+
+.dark-gray{
+  background: $dark-gray;
+}

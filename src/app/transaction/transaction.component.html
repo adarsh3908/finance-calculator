@@ -1,0 +1,63 @@
+<div *ngIf="transaction" [ngClass]="{'selected': isSelected}" class="transaction">
+    <input *ngIf="isSelecting" type="checkbox" [checked]="isSelected" (change)="toggleSelection()" class="checkbox"/>
+    <div class="transaction-details">
+      <div class="transaction--details__left">
+        <div class="transaction-id">ID: {{ transaction.id }}</div>
+        <div class="transaction-profile">
+          <div class="transaction-image">
+            <span *ngIf="transaction?.kind === 'pmt' || transaction?.kind === 'fee'" class="material-icons arrow up">arrow_upward</span>
+            <span *ngIf="transaction?.kind === 'dep'" class="material-icons arrow down">arrow_downward</span>
+            <span class="cash material-symbols-outlined">payments</span>
+          </div>
+          <div class="name-and-date">
+            <div class="beneficiary-name">{{ transaction['beneficiary-name'] }}</div>
+            <div class="transaction-date">{{ transaction.date }}</div>
+          </div>
+        </div>
+        <div class="transaction-category">
+          <div class="category-tag" *ngIf="transaction?.category?.name; else addCategory" (click)="openCategoryModal.emit(transaction.id)">
+            {{ transaction.category?.name }}
+          </div>
+          <ng-template #addCategory>
+            <button class="category-tag add-category-button" (click)="openCategoryModal.emit(transaction.id)">
+              Add Category<span class="plus material-icons">add</span>
+            </button>
+          </ng-template>
+        </div>
+      </div>
+      <div class="transaction--details__right">
+        <div class="transaction-amount">{{ transaction.amount }} {{ transaction.currency }}</div>
+        
+        <div class="transaction-decoration">
+          <div class="transaction-kind">
+            {{ getTransactionKindLabel(transaction.kind) }}
+          </div>
+          <div class="decoration-image"></div>
+          <div class="decoration-pin material-symbols-outlined">location_on</div>
+        </div>
+        <div class="transaction-split">
+          <button *ngIf="!transaction.splits?.length" class="split--button" (click)="openSplitTransactionModal()">Split transaction</button>
+          <button *ngIf="transaction.splits?.length && !showSplits" class="split--button accent" (click)="toggleShowSplits()">Show splits</button>
+          <button *ngIf="showSplits" class="split--button accent" (click)="toggleShowSplits()">Hide splits</button>
+          
+        </div>
+      </div>
+    </div>
+    <div *ngIf="showSplits" class="splits">
+      <div *ngFor="let split of transaction.splits" >
+        <div class="split-details category-tag">
+          
+          <span>{{ split.amount }} {{ transaction.currency }} - {{ split.category?.name || split.catcode }}</span>
+        </div>
+      </div>
+    </div>
+    <app-add-split-modal
+      *ngIf="showSplitModal"
+      [transaction]="transaction"
+      (closeModal)="closeSplitModal()"
+      (splitAdded)="handleSplitsAdded($event)"
+    ></app-add-split-modal>
+  </div>
+  <ng-template #noTransaction>
+    <div>No transaction details available.</div>
+  </ng-template>

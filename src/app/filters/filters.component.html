@@ -1,0 +1,68 @@
+<nav class="page-menu">
+    <ul>
+      <li class="menu-option active">
+        <span class="material-symbols-outlined"> signal_cellular_alt </span
+        >Financial overview
+      </li>
+      <li class="menu-option">
+        <span class="material-symbols-outlined"> pie_chart </span>Budgets
+      </li>
+      <li class="menu-option">
+        <span class="material-symbols-outlined"> flag </span>Saving goals
+      </li>
+      <li class="menu-option">
+        <span class="material-symbols-outlined"> settings </span>Categorization
+        rules
+      </li>
+    </ul>
+  </nav>
+  <div class="filters">
+    <div class="filter--title">Period:</div>
+    <div class="filter-container">
+      <div class="filter--date">
+        <div class="filter--date__input">
+          <div class="date-title">From:</div>
+          <input type="date" [(ngModel)]="fromDate" class="date-picker-input" />
+        </div>
+        <div class="filter--date__input">
+          <div class="date-title">To:</div>
+          <input type="date" [(ngModel)]="toDate" class="date-picker-input" />
+        </div>
+      </div>
+    </div>
+    <div class="filter--title">Transaction type:</div>
+    <div class="filter-container">
+      <select class="select" [(ngModel)]="selectedOptionType">
+        <option value="">All</option>
+        <option value="pmt">Expenses</option>
+        <option value="dep">Deposit</option>
+        <option value="fee">Fee</option>
+      </select>
+    </div>
+    <div class="filter--title">Filter by account:</div>
+    <div class="filter-container">
+      <select class="select" [(ngModel)]="selectedOptionAccount">
+        <option value="all">All accounts</option>
+      </select>
+    </div>
+    <div class="filter--title">Beneficiary:</div>
+    <div class="filter-container">
+      <div class="search-field">
+        <input
+          type="search"
+          placeholder="Enter beneficiary"
+          [(ngModel)]="beneficiary"
+          class="search-input"
+        />
+        <span class="search-icon material-symbols-outlined">search</span>
+      </div>
+    </div>
+  </div>
+  <div class="filter--buttons">
+    <button class="filter--button green" (click)="applyFilters()">
+      Filter Transactions
+    </button>
+    <button class="filter--button" (click)="clearFilters()">
+      Clear Selections
+    </button>
+  </div>

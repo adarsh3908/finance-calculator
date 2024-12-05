@@ -1,0 +1,82 @@
+@import "../../styles/variables.scss";
+
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 20px 0;
+
+  button {
+    margin: 0 5px;
+    padding: 5px 10px;
+    border: none;
+    background-color: $bg-white;
+    border-radius: 10px;
+    cursor: pointer;
+
+    &.active {
+      background-color: $primary-color;
+      color: white;
+    }
+
+    &:disabled {
+      background-color: #d3d3d3;
+      cursor: not-allowed;
+    }
+  }
+}
+
+.export {
+  display: flex;
+  height: 60px;
+  width: 100%;
+  background: $bg-white;
+  align-items: center;
+  padding: 10px 20px;
+  justify-content: space-between;
+  text-transform: uppercase;
+}
+
+.icons {
+  display: flex;
+}
+
+.icon {
+  height: 30px;
+  margin: 5px;
+  cursor: pointer;
+}
+
+.pagination {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 50px;
+  background-color: $bg-white;
+  margin: 0;
+  padding: 10px;
+}
+
+.pages{
+  display: flex;
+  justify-content: space-between;
+  width: 400px;
+}
+
+.page-size{
+  select{
+    border: 1px solid $dark-gray;
+    border-radius: 3px;
+    color: $dark-gray;
+  }
+}
+
+.pag-button {
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  text-transform: uppercase;
+  background-color: red;
+  border-radius: 4px;
+}

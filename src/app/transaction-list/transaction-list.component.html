@@ -1,0 +1,45 @@
+<div class="categorize">
+    <button *ngIf="!isSelecting" class="categorize--button" (click)="startSelecting()">
+      Categorize multiple transactions
+    </button>
+    <div *ngIf="isSelecting" class="multi-select-actions">
+      <span class="material-symbols-outlined"> keyboard_arrow_down </span>
+      <div>Please select transactions</div>
+      <button (click)="confirmSelection()" class="categorize--button">OK</button>
+      <button (click)="cancelSelection()" class="categorize--button dark-gray">Cancel</button>
+    </div>
+  </div>
+  
+  <div *ngIf="!transactions || transactions.items.length === 0" class="not-found">
+    No transactions found.
+  </div>
+  <ul *ngIf="transactions && transactions.items.length > 0">
+    <li *ngFor="let transaction of transactions.items; let i = index">
+      <app-transaction
+        class="transaction"
+        [transaction]="transaction"
+        [isSelecting]="isSelecting"
+        [isSelected]="selectedTransactionIds.includes(transaction.id)"
+        (transactionSelected)="onTransactionSelected($event)"
+        [ngClass]="{ gray: i % 2 !== 0, white: i % 2 === 0 }"
+        (splitsAdded)="onSplitsAdded(transaction)"
+        (openCategoryModal)="openCategoryModal(transaction)"
+      ></app-transaction>
+    </li>
+  </ul>
+  
+  <app-pagination
+    [totalItems]="transactions?.['total-count'] || 0"
+    [itemsPerPage]="pageSize"
+    [currentPage]="currentPage"
+    (pageChanged)="onPageChanged($event)"
+    (itemsPerPageChanged)="onItemsPerPageChanged($event)"
+  ></app-pagination>
+  
+  <app-add-category-modal
+    *ngIf="showCategoryModal"
+    [transactionIds]="selectedTransactionIds"
+    [transaction]="singleTransaction"
+    (categoryAdded)="handleCategoryAdded($event)"
+    (closeModal)="closeCategoryModal()"
+  ></app-add-category-modal>

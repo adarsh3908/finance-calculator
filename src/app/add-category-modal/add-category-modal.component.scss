@@ -1,0 +1,121 @@
+@import "../../styles/variables.scss";
+
+.modal {
+  display: block; /* Show the modal */
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgb(0, 0, 0);
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto;
+  border: 1px solid #888;
+  max-width: 600px;
+}
+
+.modal-title {
+  width: 100%;
+  height: 60px;
+  background: $primary-color;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
+  color: $bg-white;
+  position: relative; /* Ensure that the pseudo-element is positioned relative to the modal-title */
+}
+
+.modal-title::after {
+  content: "";
+  position: absolute;
+  bottom: -30px; /* Adjust the value to control the distance from the title */
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 20px; /* Size of the triangle */
+  border-style: solid;
+  border-color: $primary-color transparent transparent transparent; /* Triangle pointing downward */
+}
+
+.modal-paragraph {
+  color: $primary-color;
+  text-align: center;
+  padding: 40px 0 60px 0;
+}
+
+.close-button {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.close-button:hover,
+.close-button:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.selector {
+  display: flex;
+  justify-content: center;
+  select {
+    width: 80%;
+    margin: 10px auto;
+    padding: 5px;
+    color: $bg-white;
+    background: $primary-color;
+    border: none;
+    cursor: pointer;
+  }
+
+  select:disabled {
+    background: $primary-color-light;
+  }
+
+  .placeholder {
+    color: $bg-white;
+  }
+
+  option {
+    background: $primary-color;
+    color: $bg-white;
+  }
+}
+
+.navigation {
+  width: 100%;
+  display: flex;
+  margin-top: 80px;
+
+  button {
+    width: 50%;
+    border: $text-color;
+    padding: 10px 0px;
+    color: $bg-white;
+    cursor: pointer;
+  }
+  .close {
+    background-color: $accent-color-orange;
+  }
+}
+
+.apply {
+  background-color: $accent-color;
+}
+
+.apply:disabled {
+  background-color: $dark-gray;
+}
+
+.beneficiary-name{
+  color: $accent-color;
+}

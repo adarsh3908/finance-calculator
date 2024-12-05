@@ -1,0 +1,89 @@
+<div class="modal">
+    <div class="modal-content">
+      <div class="modal-title">Split Transaction</div>
+      <div class="modal-paragraph">
+        <ng-container *ngIf="transaction?.id; else noTransaction">
+          Please split transaction from
+          <span
+            class="beneficiary-name"
+            >{{ transaction?.['beneficiary-name'] }}</span
+          >
+          to categories
+        </ng-container>
+        <ng-template #noTransaction> No transaction ID provided. </ng-template>
+      </div>
+      <div *ngFor="let split of splits; let i = index" class="split-group">
+        <div class="splits--button selector">
+          <button class="remove-split" (click)="removeSplit(i)">
+            <p>Remove this category</p>
+            <div class="split-separator"></div>
+            <span class="material-symbols-outlined"> cancel </span>
+          </button>
+        </div>
+        <div class="selector">
+          <select
+            [(ngModel)]="split.selectedMainCategory"
+            (change)="updateSubCategories(i)"
+          >
+            <option [value]="null" disabled class="placeholder">
+              Choose category
+            </option>
+            <option
+              *ngFor="let category of mainCategories"
+              [value]="category.code"
+            >
+              {{ category.name }}
+            </option>
+          </select>
+        </div>
+        <div class="selector">
+          <select
+            [(ngModel)]="split.selectedSubCategory"
+            [disabled]="!split.selectedMainCategory"
+          >
+            <option [value]="null" disabled class="placeholder">
+              Choose subcategory
+            </option>
+            <option
+              *ngFor="let subCategory of split.subCategories"
+              [value]="subCategory.code"
+            >
+              {{ subCategory.name }}
+            </option>
+          </select>
+        </div>
+        <div class="amount-label" *ngIf="split.amount === 0 || split.amount==undefined">
+          Enter amount <span class="material-symbols-outlined"> attach_money </span>
+        </div>
+        <div class="selector">
+            <input
+              type="number"
+              [(ngModel)]="split.amount"
+              [placeholder]="split.amount === 0 ? 'Enter amount' : ''"
+              class="amount-input"
+            />
+        </div>
+      </div>
+      <div class="splits--button selector">
+        <button class="add-split" (click)="addSplit()">
+          <p>Add another category</p>
+          <div class="split-separator"></div>
+          <span class="material-symbols-outlined"> add_circle </span>
+        </button>
+      </div>
+      <div *ngIf="totalAmount !== transaction?.amount" class="error-message">
+        Sum of all amounts must be equal to transaction sum
+        {{ transaction?.amount }}
+      </div>
+      <div class="navigation">
+        <button class="close" (click)="onCloseModal()">Cancel</button>
+        <button
+          class="apply"
+          [disabled]="isApplyDisabled"
+          (click)="applySplits()"
+        >
+          Apply
+        </button>
+      </div>
+    </div>
+  </div>

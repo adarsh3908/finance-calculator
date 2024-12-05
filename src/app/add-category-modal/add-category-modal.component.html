@@ -1,0 +1,62 @@
+<div class="modal">
+    <div class="modal-content">
+      <div class="modal-title">Choose category</div>
+      <div class="modal-paragraph">
+        <ng-container *ngIf="transaction; else multipleTransactionsText">
+          You are now categorizing <span class="beneficiary-name">{{ transaction["beneficiary-name"] }}'s</span>
+          transaction
+        </ng-container>
+        <ng-template #multipleTransactionsText>
+          <ng-container *ngIf="transactionIds.length === 1; else pluralText">
+            You have selected 1 transaction for categorization
+          </ng-container>
+          <ng-template #pluralText>
+            You have selected {{ transactionIds.length }} transactions for
+            categorization
+          </ng-template>
+        </ng-template>
+      </div>
+      <div class="selector">
+        <select
+          id="mainCategory"
+          [(ngModel)]="selectedMainCategory"
+          (change)="updateSubCategories()"
+        >
+          <option value="null" disabled selected class="placeholder">
+            Choose category
+          </option>
+          <option *ngFor="let category of mainCategories" [value]="category.code">
+            {{ category.name }}
+          </option>
+        </select>
+      </div>
+      <div class="selector">
+        <select
+          id="subCategory"
+          [(ngModel)]="selectedSubCategory"
+          [disabled]="!selectedMainCategory"
+        >
+          <option value="null" disabled selected class="placeholder">
+            Choose subcategory
+          </option>
+          <option
+            *ngFor="let subCategory of subCategories"
+            [value]="subCategory.code"
+          >
+            {{ subCategory.name }}
+          </option>
+        </select>
+      </div>
+      <div class="navigation">
+        <button class="close" (click)="onCloseModal()">Cancel</button>
+        <button
+          (click)="addCategory()"
+          [disabled]="!selectedMainCategory"
+          class="apply"
+        >
+          Apply
+        </button>
+      </div>
+    </div>
+  </div>
+  

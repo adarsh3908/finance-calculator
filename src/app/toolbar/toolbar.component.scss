@@ -1,0 +1,53 @@
+@import "../../styles/variables.scss";
+
+.toolbar {
+  height: 50px;
+  min-width: 1000px;
+  width: 100%;
+  background-color: $primary-color;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: $bg-white;
+}
+
+.breadcrumbs {
+  padding-left: 10px;
+}
+
+.profile {
+  border-left: 2px solid $bg-white;
+  height: 50px;
+  display: flex;
+  padding: 0 10px;
+  position: relative;
+  cursor: pointer;
+
+  .profile--image {
+    width: 60px;
+    height: 60px;
+    overflow: hidden;
+    border-radius: 60px;
+    transform: translate(0, 10px);
+    margin-right: 10px;
+  }
+
+  .message-number{
+    position: absolute;
+    left: 50px;
+    top:5px;
+    font-size: 10px;
+    background: $accent-color-orange;
+    padding: 2px 5px;
+    border-radius: 50%;
+    z-index: 100;
+  }
+
+  .profile--text {
+    font-size: 16px;
+
+    .messages{
+font-size: 13px;
+    }
+  }
+}

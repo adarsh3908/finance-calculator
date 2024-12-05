@@ -1,0 +1,49 @@
+<div class="export">
+    <div class="title">
+      <p>Export list of transactions as:</p>
+    </div>
+    <div class="icons">
+      <img class="icon" src="assets/images/pdf2.png" alt="pdf" />
+      <img class="icon" src="assets/images/xls.png" alt="excel" />
+      <img class="icon" src="assets/images/csv.png" alt="csv" />
+    </div>
+  </div>
+  
+  <div class="pagination">
+    <div class="pages">
+      <button (click)="goToPreviousPage()" [disabled]="currentPage === 1" class="pag-button">
+        <span class="material-symbols-outlined">chevron_left</span> Prev
+      </button>
+  
+      <ng-container *ngIf="totalPages > 6">
+        <button *ngIf="currentPage > 1" (click)="selectPage(1)">1</button>
+        <span *ngIf="currentPage > 3">...</span>
+        <button *ngIf="currentPage > 2" (click)="selectPage(currentPage - 1)">{{ currentPage - 1 }}</button>
+        <button class="active">{{ currentPage }}</button>
+        <button *ngIf="currentPage < totalPages - 1" (click)="selectPage(currentPage + 1)">{{ currentPage + 1 }}</button>
+        <span *ngIf="currentPage < totalPages - 2">...</span>
+        <button *ngIf="currentPage < totalPages" (click)="selectPage(totalPages)">{{ totalPages }}</button>
+      </ng-container>
+  
+      <ng-container *ngIf="totalPages <= 6">
+        <button *ngFor="let page of pages" (click)="selectPage(page)" [class.active]="page === currentPage">
+          {{ page }}
+        </button>
+      </ng-container>
+  
+      <button (click)="goToNextPage()" [disabled]="currentPage === totalPages" class="pag-button">
+        Next <span class="material-symbols-outlined">chevron_right</span>
+      </button>
+    </div>
+    <div class="page-size">
+      <label for="pageSize">Items per page:</label>
+      <select id="pageSize" [(ngModel)]="itemsPerPage" (change)="onItemsPerPageChange()">
+        <option *ngFor="let size of [3,5, 10, 20, 50]" [value]="size">{{ size }}</option>
+      </select>
+    </div>
+    <div class="current-page-info">
+      Page {{ currentPage }} of {{ totalPages }}
+    </div>
+  
+    
+  </div>
